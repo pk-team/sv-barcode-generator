@@ -1,0 +1,118 @@
+/* $lib/global.css - global styles for Print Barcode Generator app */
+
+:root {
+  --primary-bg: #fff;
+  --primary-border: #222;
+  --primary-radius: 18px;
+  --primary-padding: 0.7rem 1.2rem 0.2rem 1.2rem;
+  --input-bg: #f8f8f8;
+  --input-border: #222;
+  --input-radius: 12px;
+  --input-padding: 0.5rem 1.2rem;
+  --button-bg: #b3e0ff;
+  --button-border: #222;
+  --button-radius: 10px;
+  --button-padding: 0.5rem 1.5rem;
+  --button-hover-bg: #7fd3ff;
+  --title-font: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+}
+
+body {
+  background: var(--primary-bg);
+  color: #222;
+  font-family: system-ui, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+}
+
+.app-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem 2.5rem;
+  border: 2px solid var(--primary-border);
+  border-radius: 32px;
+  background: var(--primary-bg);
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1, .app-title {
+  font-family: var(--title-font);
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.input-row {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 2.2rem;
+}
+
+input[type="text"], .barcode-input {
+  background: var(--input-bg);
+  border: 2px solid var(--input-border);
+  border-radius: var(--input-radius);
+  padding: var(--input-padding);
+  font-size: 1.2rem;
+  min-width: 340px;
+  outline: none;
+  transition: border 0.2s;
+}
+input[type="text"]:focus, .barcode-input:focus {
+  border-color: #0077cc;
+}
+
+button, .btn {
+  background: var(--button-bg);
+  border: 2px solid var(--button-border);
+  border-radius: var(--button-radius);
+  padding: var(--button-padding);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 1px 2px 0 #aaa;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+button:hover, .btn:hover {
+  background: var(--button-hover-bg);
+  box-shadow: 2px 4px 0 #aaa;
+}
+
+.print-btn {
+  margin-bottom: 1.5rem;
+  align-self: flex-end;
+}
+
+.barcodes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  width: 100%;
+  align-items: center;
+}
+
+@media print {
+  body, html {
+    background: #fff !important;
+  }
+  .app-container, .input-row, .app-title, .print-btn {
+    display: none !important;
+  }
+  .print-barcodes {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100vw;
+    gap: 2.2rem;
+  }
+  .barcode-container {
+    page-break-inside: avoid;
+    margin: 0 auto 2.2rem auto !important;
+  }
+}
