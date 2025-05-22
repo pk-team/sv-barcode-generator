@@ -1,4 +1,3 @@
-
 <script lang="ts">
   import '$lib/global.css'
   import Barcode from '$lib/components/Barcode.svelte';
@@ -14,7 +13,7 @@
   }
 
   function printBarcodes() {
-    isPrintMode = true;
+    isPrintMode = true; // This will add .print-barcodes to the barcode div for styling
     setTimeout(() => {
       window.print();
       // After print, restore normal mode
@@ -23,8 +22,10 @@
   }
 </script>
 
-<div class:hide-on-print={isPrintMode} style="display: flex; flex-direction: column; align-items: center; min-height: 100vh;">
+<div style="display: flex; flex-direction: column; align-items: center; min-height: 100vh;">
+  
   <h1 class="hide-on-print">Print Barcode Generator</h1>
+
   <div class="hide-on-print" style="display: flex; align-items: center; margin-bottom: 2rem;">
     <input
       bind:this={inputRef}
@@ -53,8 +54,14 @@
 
 <style>
 .print-barcodes {
-  /* Print layout handled in global.css */
-  flex-direction: row !important;
+  /* This style applies when isPrintMode is true (briefly, during printing).
+     Ensure it aligns with or is overridden by your @media print styles in global.css if needed.
+     The user's provided global.css has 'flex-direction: column' for .print-barcodes in @media print,
+     while this local style has 'flex-direction: row !important;'.
+     The !important here will likely take precedence during print.
+     Adjust if print layout should be column.
+  */
+  flex-direction: row !important; 
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
