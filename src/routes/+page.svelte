@@ -52,9 +52,6 @@
 </div>
 
 <style>
-.hide-on-print {
-  /* Hide with print media query in global.css */
-}
 .print-barcodes {
   /* Print layout handled in global.css */
   flex-direction: row !important;

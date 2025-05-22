@@ -99,6 +99,9 @@ button:hover, .btn:hover {
   body, html {
     background: #fff !important;
   }
+  .hide-on-print {
+    display: none !important;
+  }
   .app-container, .input-row, .app-title, .print-btn {
     display: none !important;
   }
