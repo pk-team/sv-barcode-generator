@@ -10,6 +10,8 @@
   let { barcodeValue, spacing = 'Default', gap = '' }: Props = $props();
   let svgEl: SVGSVGElement | null = null;
 
+  let highlight = $state<boolean>(false);
+
   // Adjust barcode size and padding based on spacing
   const spacingConfig = {
     Default: {
@@ -52,21 +54,63 @@
       });
     }
   });
+
+  function handleClick() {
+    highlight = !highlight;
+    if (highlight) {
+      navigator.clipboard.writeText(barcodeValue).then(() => {
+        console.log('Barcode copied to clipboard');
+      }).catch(err => {
+        console.error('Failed to copy barcode: ', err);
+      });
+    }
+  }
 </script>
 
-<div class="barcode-container" style="padding: {spacingConfig[spacing].padding}; min-width: {spacingConfig[spacing].minWidth}; margin: {gap};">
+<button
+  type="button"
+  onclick={handleClick}
+  class="barcode-container"
+  class:highlight={highlight}
+  style="
+    padding: {spacingConfig[spacing].padding};
+    min-width: {spacingConfig[spacing].minWidth};
+    margin: {gap};
+  "
+  aria-label="Barcode"
+>
   <svg bind:this={svgEl}></svg>
-</div>
+</button>
 
 <style>
+/* Barcode button styling overrides default button styles */
 .barcode-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: #fff;
   border: 2px dashed #222;
   border-radius: 18px;
+  appearance: none;
+  -webkit-appearance: none;
+  box-shadow: none;
+  outline: none;
+  transition: border 0.15s, box-shadow 0.15s;
+  cursor: pointer;
+}
+.barcode-container.highlight {
+  border-width: 3px;
+  border-color: #111;
+  box-shadow: 0 0 0 2px #2222, 0 2px 8px #0001;
   background: #fff;
   transition: padding 0.2s, min-width 0.2s, margin 0.2s;
+}
+.barcode-container:hover {
+  cursor: pointer;
+  background-color: #222;
+}
+.barcode-container.highlight {
+  background-color: lightblue;
 }
 svg {
   width: 100%;
