@@ -6,8 +6,9 @@
     barcodeValue: string;
     spacing?: Spacing;
     gap?: string;
+    isPrintMode?: boolean;
   }
-  let { barcodeValue, spacing = 'Default', gap = '' }: Props = $props();
+  let { barcodeValue, spacing = 'Default', gap = '', isPrintMode = false }: Props = $props();
   let svgEl: SVGSVGElement | null = null;
 
   let highlight = $state<boolean>(false);
@@ -72,6 +73,7 @@
   onclick={handleClick}
   class="barcode-container"
   class:highlight={highlight}
+  class:print-mode={isPrintMode}
   style="
     padding: {spacingConfig[spacing].padding};
     min-width: {spacingConfig[spacing].minWidth};
@@ -97,6 +99,17 @@
   outline: none;
   transition: border 0.15s, box-shadow 0.15s;
   cursor: pointer;
+}
+.barcode-container.print-mode {
+  border: none;
+  background: #fff;
+  box-shadow: none;
+  border-radius: 0;
+}
+.barcode-container.print-mode.highlight {
+  border: 2px solid #111;
+  border-radius: 8px;
+  background: lightblue;
 }
 .barcode-container.highlight {
   border-width: 3px;
